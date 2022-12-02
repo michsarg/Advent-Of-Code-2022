@@ -11,10 +11,10 @@ namespace AdventProgram
             Console.WriteLine("Advent of Code 2022");
             while (!endApp)
             {
-                solvers.Solver01B();
+                solvers.Solver02B();
                 endApp = true;
             }
-            Console.WriteLine("\n"); // Friendly linespacing.
+            Console.WriteLine("\n");
             return;
         }
 
