@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.IO;
+using System.ComponentModel.DataAnnotations;
 
 namespace SolverLibrary
 {
@@ -61,12 +62,12 @@ namespace SolverLibrary
 
             int topThreeTotal = 0;
             int count = 0;
-            foreach(int value in results)
+            foreach (int value in results)
             {
                 if (count < 3)
                 {
                     topThreeTotal += value;
-                    Console.WriteLine("Top" + (count+1) + ": " + value);
+                    Console.WriteLine("Top" + (count + 1) + ": " + value);
                 }
                 else break;
                 count += 1;
@@ -183,7 +184,7 @@ namespace SolverLibrary
                 {
                     opponentScore += 3;
                     playerScore = opponentScore;
-                    
+
                 }
 
                 // player win
@@ -209,5 +210,79 @@ namespace SolverLibrary
             Console.WriteLine("opponentTotal:" + opponentTotal);
         }
 
+        public void Solver03A()
+        {
+            Console.WriteLine("Challenge: 3A");
+
+            string directory = Directory.GetCurrentDirectory();
+            string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\03input.txt");
+            var lines = File.ReadLines(filePath);
+            int totalPriority = 0;
+            foreach (string line in lines )             
+            {
+                int len = line.Length;
+                int halfLen = (line.Length/ 2);
+                char[] first = (line.ToCharArray(0, halfLen));
+                char[] second = (line.ToCharArray( halfLen, halfLen ));
+
+                foreach (char c in first)
+                {
+                    if (Array.Exists(second, element => element == c))
+                    {
+                        Console.Write(c + " ");
+                        //convert to value
+                        int value = 0;
+                        if (Char.IsUpper(c))
+                            value = ((int)c) - 38;
+                        else 
+                            value = ((int)c) - 96;
+
+                        Console.WriteLine(value);
+                        totalPriority += value;
+                        break;
+                    }
+                }
+            }
+            Console.WriteLine("totalPriority: " + totalPriority);
+
+        }
+
+        public void Solver03B()
+        {
+            Console.WriteLine("Challenge: 3B");
+
+            string directory = Directory.GetCurrentDirectory();
+            string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\03input.txt");
+            var lines = File.ReadAllLines(filePath);
+            int totalPriority = 0;
+            int linesLength = File.ReadLines(filePath).Count();
+
+            Console.WriteLine(linesLength);
+
+            for (int i = 0; i<linesLength; i += 3)
+            {
+
+                foreach(char c1 in lines[i])
+                {
+                    if (lines[i + 1].Contains(c1) && lines[i + 2].Contains(c1))
+                    {
+                        Console.WriteLine(c1);
+                        int value = 0;
+                        if (Char.IsUpper(c1))
+                            value = ((int)c1) - 38;
+                        else
+                            value = ((int)c1) - 96;
+
+                        Console.WriteLine(value);
+                        totalPriority += value;
+                        break;
+                    }
+                }
+
+            }
+
+            Console.WriteLine("totalPriority: " + totalPriority);
+
+        }
     }
 }
