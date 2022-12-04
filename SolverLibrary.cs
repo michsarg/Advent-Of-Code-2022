@@ -218,12 +218,12 @@ namespace SolverLibrary
             string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\03input.txt");
             var lines = File.ReadLines(filePath);
             int totalPriority = 0;
-            foreach (string line in lines )             
+            foreach (string line in lines)
             {
                 int len = line.Length;
-                int halfLen = (line.Length/ 2);
+                int halfLen = (line.Length / 2);
                 char[] first = (line.ToCharArray(0, halfLen));
-                char[] second = (line.ToCharArray( halfLen, halfLen ));
+                char[] second = (line.ToCharArray(halfLen, halfLen));
 
                 foreach (char c in first)
                 {
@@ -234,7 +234,7 @@ namespace SolverLibrary
                         int value = 0;
                         if (Char.IsUpper(c))
                             value = ((int)c) - 38;
-                        else 
+                        else
                             value = ((int)c) - 96;
 
                         Console.WriteLine(value);
@@ -259,10 +259,10 @@ namespace SolverLibrary
 
             Console.WriteLine(linesLength);
 
-            for (int i = 0; i<linesLength; i += 3)
+            for (int i = 0; i < linesLength; i += 3)
             {
 
-                foreach(char c1 in lines[i])
+                foreach (char c1 in lines[i])
                 {
                     if (lines[i + 1].Contains(c1) && lines[i + 2].Contains(c1))
                     {
@@ -283,6 +283,92 @@ namespace SolverLibrary
 
             Console.WriteLine("totalPriority: " + totalPriority);
 
+        }
+
+        public void Solver04A()
+        {
+            Console.WriteLine("Challenge: 4A");
+
+            string directory = Directory.GetCurrentDirectory();
+            string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\04input.txt");
+            var lines = File.ReadLines(filePath);
+
+            int rangeMatch = 0;
+
+            foreach (var line in lines)
+            {
+                Console.WriteLine(line);
+                char[] delimiters = { ',', '-' };
+                string[] numArray = line.Split(delimiters);
+                Console.Write(numArray[0] + " ");
+                Console.Write(numArray[1] + " ");
+                Console.Write(numArray[2] + " ");
+                Console.Write(numArray[3] + " ");
+
+
+                if (
+                        (
+                        int.Parse(numArray[0]) >= int.Parse(numArray[2]) &&
+                        int.Parse(numArray[1]) <= int.Parse(numArray[3])
+                        ) ||
+                        (
+                        int.Parse(numArray[0]) <= int.Parse(numArray[2]) &&
+                        int.Parse(numArray[1]) >= int.Parse(numArray[3])
+                        )
+                    )
+                {
+                    Console.Write(" rangeMatched");
+                    rangeMatch++;
+                };
+
+                Console.WriteLine();
+
+            }
+            Console.WriteLine("rangeMatch:" + rangeMatch);
+        }
+
+        public void Solver04B()
+        {
+            Console.WriteLine("Challenge: 4B");
+
+            string directory = Directory.GetCurrentDirectory();
+            string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\04input.txt");
+            var lines = File.ReadLines(filePath);
+
+            int rangeMatch = 0;
+
+            foreach (var line in lines)
+            {
+                Console.WriteLine(line);
+                char[] delimiters = { ',', '-' };
+                string[] numArray = line.Split(delimiters);
+                Console.Write(numArray[0] + " ");
+                Console.Write(numArray[1] + " ");
+                Console.Write(numArray[2] + " ");
+                Console.Write(numArray[3] + " ");
+                Console.WriteLine("");
+
+                if ((
+                    int.Parse(numArray[0]) >= int.Parse(numArray[2]) &&
+                    int.Parse(numArray[0]) <= int.Parse(numArray[3])
+                    ) || (
+                    int.Parse(numArray[1]) <= int.Parse(numArray[2]) &&
+                    int.Parse(numArray[1]) >= int.Parse(numArray[3])
+                    ) || (
+                    int.Parse(numArray[2]) >= int.Parse(numArray[0]) &&
+                    int.Parse(numArray[2]) <= int.Parse(numArray[1])
+                    ) || (
+                    int.Parse(numArray[3]) <= int.Parse(numArray[0]) &&
+                    int.Parse(numArray[3]) >= int.Parse(numArray[1])
+                   ))
+                   
+                {
+                    Console.Write(" rangeMatched");
+                    rangeMatch++;
+                };
+                
+            }
+            Console.WriteLine("Matches: " + rangeMatch);
         }
     }
 }
