@@ -471,7 +471,7 @@ namespace SolverLibrary
 
 
             //interpret moves
-            for (int i = 10; i<linesLength; i++)
+            for (int i = 10; i < linesLength; i++)
             {
                 Console.WriteLine(lines[i]);
 
@@ -480,7 +480,7 @@ namespace SolverLibrary
                 if (Char.IsDigit(lines[i][5]))
                 {
                     if (Char.IsDigit(lines[i][6]))
-                        moveCount = int.Parse(lines[i].Substring(5,2));
+                        moveCount = int.Parse(lines[i].Substring(5, 2));
                     else
                         moveCount = int.Parse(lines[i].Substring(5, 1));
                 }
@@ -504,7 +504,7 @@ namespace SolverLibrary
 
 
                 //Execute move
-                for (int j = 0; j<moveCount; j++)
+                for (int j = 0; j < moveCount; j++)
                 {
                     if (moveFrom == 1)
                     {
@@ -613,7 +613,7 @@ namespace SolverLibrary
 
             // result
             Console.Write("Stack1: ");
-            foreach(char c in stack1) Console.Write(c);
+            foreach (char c in stack1) Console.Write(c);
             Console.WriteLine();
 
             Console.Write("Stack2: ");
@@ -649,5 +649,311 @@ namespace SolverLibrary
             Console.WriteLine();
 
         }
+
+        public void Solver05B()
+        {
+            Console.WriteLine("Challenge: 5B");
+
+            string directory = Directory.GetCurrentDirectory();
+            string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\05input.txt");
+            var lines = File.ReadAllLines(filePath);
+            int linesLength = File.ReadLines(filePath).Count();
+
+            //Stack<char> stack1 = new Stack<char>();
+            //stack1.Push('Z');
+            //stack1.Push('N');
+
+            //Stack<char> stack2 = new Stack<char>();
+            //stack2.Push('M');
+            //stack2.Push('C');
+            //stack2.Push('D');
+
+            //Stack<char> stack3 = new Stack<char>();
+            //stack3.Push('P');
+
+            Stack<char> stack1 = new Stack<char>();
+            stack1.Push('P');
+            stack1.Push('F');
+            stack1.Push('M');
+            stack1.Push('Q');
+            stack1.Push('W');
+            stack1.Push('G');
+            stack1.Push('R');
+            stack1.Push('T');
+
+            Stack<char> stack2 = new Stack<char>();
+            stack2.Push('H');
+            stack2.Push('F');
+            stack2.Push('R');
+
+            Stack<char> stack3 = new Stack<char>();
+            stack3.Push('P');
+            stack3.Push('Z');
+            stack3.Push('R');
+            stack3.Push('V');
+            stack3.Push('G');
+            stack3.Push('H');
+            stack3.Push('S');
+            stack3.Push('D');
+
+            Stack<char> stack4 = new Stack<char>();
+            stack4.Push('Q');
+            stack4.Push('H');
+            stack4.Push('P');
+            stack4.Push('B');
+            stack4.Push('F');
+            stack4.Push('W');
+            stack4.Push('G');
+
+            Stack<char> stack5 = new Stack<char>();
+            stack5.Push('P');
+            stack5.Push('S');
+            stack5.Push('M');
+            stack5.Push('J');
+            stack5.Push('H');
+
+            Stack<char> stack6 = new Stack<char>();
+            stack6.Push('M');
+            stack6.Push('Z');
+            stack6.Push('T');
+            stack6.Push('H');
+            stack6.Push('S');
+            stack6.Push('R');
+            stack6.Push('P');
+            stack6.Push('L');
+
+            Stack<char> stack7 = new Stack<char>();
+            stack7.Push('P');
+            stack7.Push('T');
+            stack7.Push('H');
+            stack7.Push('N');
+            stack7.Push('M');
+            stack7.Push('L');
+
+            Stack<char> stack8 = new Stack<char>();
+            stack8.Push('F');
+            stack8.Push('D');
+            stack8.Push('Q');
+            stack8.Push('R');
+
+            Stack<char> stack9 = new Stack<char>();
+            stack9.Push('D');
+            stack9.Push('S');
+            stack9.Push('C');
+            stack9.Push('N');
+            stack9.Push('L');
+            stack9.Push('P');
+            stack9.Push('H');
+
+
+
+            //interpret moves
+            for (int i = 10; i < linesLength; i++)
+            {
+                Console.WriteLine(lines[i]);
+
+                //get moveCount
+                int moveCount = 0;
+                if (Char.IsDigit(lines[i][5]))
+                {
+                    if (Char.IsDigit(lines[i][6]))
+                        moveCount = int.Parse(lines[i].Substring(5, 2));
+                    else
+                        moveCount = int.Parse(lines[i].Substring(5, 1));
+                }
+                Console.WriteLine("moveCount: " + moveCount);
+
+                //get moveFrom
+                int moveFrom = 0;
+                if (Char.IsDigit(lines[i][12]))
+                    moveFrom = int.Parse(lines[i].Substring(12, 1));
+                else if (Char.IsDigit(lines[i][13]))
+                    moveFrom = int.Parse(lines[i].Substring(13, 1));
+                Console.WriteLine("moveFrom: " + moveFrom);
+
+                //get moveTo
+                int moveTo = 0;
+                if (Char.IsDigit(lines[i][17]))
+                    moveTo = int.Parse(lines[i].Substring(17, 1));
+                else if (Char.IsDigit(lines[i][18]))
+                    moveTo = int.Parse(lines[i].Substring(18, 1));
+                Console.WriteLine("moveTo: " + moveTo);
+
+
+                //Execute move
+                
+                Stack <char> stackPlus= new Stack<char>();
+
+
+            if (moveFrom == 1)
+            {
+                // pop/push to stackPlus
+                for (int k = 0; k < moveCount; k++) stackPlus.Push(stack1.Pop());
+                // pop/push to moveTo
+                if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+            }
+            else if (moveFrom == 2)
+            {
+                // pop/push to stackPlus
+                for (int k = 0; k < moveCount; k++) stackPlus.Push(stack2.Pop());
+                // pop/push to moveTo
+                if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+            }
+            else if (moveFrom == 3)
+            {
+                // pop/push to stackPlus
+                for (int k = 0; k < moveCount; k++) stackPlus.Push(stack3.Pop());
+                // pop/push to moveTo
+                if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+            }
+                else if (moveFrom == 4)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack4.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
+                else if (moveFrom == 5)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack5.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
+                else if (moveFrom == 6)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack6.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
+                else if (moveFrom == 7)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack7.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
+                else if (moveFrom == 8)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack8.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
+                else if (moveFrom == 9)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack9.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                }
+
+
+            }
+
+
+            // result
+            Console.Write("Stack1: ");
+            foreach (char c in stack1) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack2: ");
+            foreach (char c in stack2) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack3: ");
+            foreach (char c in stack3) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack4: ");
+            foreach (char c in stack4) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack5: ");
+            foreach (char c in stack5) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack6: ");
+            foreach (char c in stack6) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack7: ");
+            foreach (char c in stack7) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack8: ");
+            foreach (char c in stack8) Console.Write(c);
+            Console.WriteLine();
+
+            Console.Write("Stack9: ");
+            foreach (char c in stack9) Console.Write(c);
+            Console.WriteLine();
+
+        }
+
     }
 }
