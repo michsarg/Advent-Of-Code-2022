@@ -1150,5 +1150,150 @@ namespace SolverLibrary
 
         }
 
-     }
+
+        public void Solver07B()
+        {
+            Console.WriteLine("Challenge: 7B");
+
+            string directory = Directory.GetCurrentDirectory();
+            string readPath = System.IO.Path.Combine(directory, @"..\..\..\data\07input.txt");
+            string writePath = System.IO.Path.Combine(directory, @"..\..\..\data\07output.txt");
+            string filesPath = System.IO.Path.Combine(directory, @"..\..\..\data\07files.txt");
+            var lines = File.ReadLines(readPath);
+            int linesLength = lines.Count();
+
+            Console.WriteLine(linesLength);
+            string currentDir = "/";
+            string filePath = "/";
+
+            using (StreamWriter fileWriter = new StreamWriter(filesPath))
+            {
+                using (StreamWriter writer = new StreamWriter(writePath))
+                {
+                    // iterate through lines
+                    foreach (string line in lines)
+                    {
+                        processLine(line);
+                    }
+
+                    // process each line, passing file system
+                    void processLine(string line)
+                    {
+                        if (line[0] == '$')
+                        {
+                            Console.Write("$ ");
+                            writer.Write("$ ");
+                            if (line[2] == 'c')
+                            {
+                                Console.Write("cd ");
+                                writer.Write("cd ");
+                                if (line[5] == '.') // change directory
+                                {
+                                    Console.WriteLine("..");
+                                    writer.WriteLine("..");
+                                    int li = filePath.Substring(0, filePath.LastIndexOf("/")).LastIndexOf("/") + 1;
+                                    filePath = filePath.Substring(0, li);
+
+                                }
+                                else if (line[5] == '/') // switch to root
+                                {
+                                    Console.WriteLine("/");
+                                    writer.WriteLine("/");
+                                }
+                                else // change directory
+                                {
+                                    currentDir = (string)line.Substring(5, line.Length - 5);
+                                    Console.WriteLine(currentDir);
+                                    writer.WriteLine(currentDir);
+                                    filePath = filePath + currentDir + "/";
+                                }
+
+                            }
+                            else if (line[2] == 'l') // list contents (no action)
+                            {
+                                Console.WriteLine("ls");
+                                writer.WriteLine("ls");
+                            }
+
+                        }
+                        else if (line[0] == 'd')
+                        {
+                            // directory found in currentDir
+                            string dirName = (string)line.Substring(3, line.Length - 3);
+                            Console.WriteLine("dir" + dirName);
+                            writer.WriteLine("dir" + dirName);
+                        }
+                        else if (Char.IsDigit(line[0]))
+                        {
+                            // file found in current dir
+                            string[] subs = line.Split(' ');
+                            int fileSize = int.Parse(subs[0]);
+                            string fileName = subs[1];
+                            Console.WriteLine(fileSize + " " + fileName);
+                            writer.WriteLine(fileSize + " " + fileName);
+                            fileWriter.WriteLine(filePath + fileName + "(" + fileSize + ")");
+                        }
+
+                    }
+
+                }
+            }
+            Console.WriteLine();
+
+            // create dictionary of folders
+            Dictionary<string, int> dirSizes = new System.Collections.Generic.Dictionary<string, int>();
+
+            // read through 07files.txt
+            // get all folders
+            var filesLines = File.ReadLines(filesPath);
+
+            // sort 07files by number of dirs
+            List<string> filesLinesList = new List<string>();
+            foreach (string line in filesLines)
+            { filesLinesList.Add(line); }
+
+            int totalUsedSpace = 0;
+
+            foreach (string line in filesLinesList)
+            {
+                int index1 = line.IndexOf('(');
+                int index2 = line.IndexOf(')');
+                //int size = char.Parse(line.Substring(valueIndexStart, valueIndexEnd));
+                int value = int.Parse(line.Substring(index1 + 1, (index2 - index1 - 1)));
+                Console.WriteLine(value);
+                totalUsedSpace+= value;
+
+
+                string path = line.Substring(0, line.LastIndexOf('/') + 1);
+                while (path != "/")
+                {
+                    if (!dirSizes.ContainsKey(path))
+                    { dirSizes.Add(path, value); }
+                    else { dirSizes[path] += value; }
+                    path = path.Substring(0, path.Substring(0, path.LastIndexOf("/")).LastIndexOf("/") + 1);
+                }
+            }
+
+            int unusedSpace = 70000000 - totalUsedSpace;
+            int bestSpace = 70000000;
+            string bestDir = "";
+            foreach (KeyValuePair<string, int> res in dirSizes)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", res.Key, res.Value);
+                if (res.Value > (30000000 - unusedSpace) && res.Value < bestSpace)
+                {
+                    bestSpace = res.Value;
+                    bestDir = res.Key;
+                }    
+            }
+
+
+
+            Console.WriteLine("totalUsedSpace: " +  totalUsedSpace);
+            Console.WriteLine("unusedSpace: " + unusedSpace);
+            Console.WriteLine();
+            Console.WriteLine("bestSpace: " + bestSpace);
+
+        }
+    }
 }
