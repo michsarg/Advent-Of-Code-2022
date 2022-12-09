@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System.Collections;
 using System.Runtime.ExceptionServices;
+using ClassLibrary;
+using System.Security.Cryptography.X509Certificates;
+using System.Reflection.Metadata.Ecma335;
 
 namespace SolverLibrary
 {
@@ -1014,5 +1017,96 @@ namespace SolverLibrary
             }
         }
 
-    }
+        public void Solver07A()
+        {
+            Console.WriteLine("Challenge: 7A");
+
+            string directory = Directory.GetCurrentDirectory();
+            string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\07sample.txt");
+            var lines = File.ReadLines(filePath);
+            int linesLength = lines.Count();
+
+            Console.WriteLine(linesLength);
+            string currentDir = "/";
+            DeviceDirectory fileSystem = new DeviceDirectory("/", null);
+
+            // iterate through lines
+            foreach (string line in lines)
+            {
+                processLine(ref fileSystem, line);
+            }
+
+            // process each line, passing file system
+            void processLine(ref DeviceDirectory fileSystem, string line)
+            {
+                if (line[0] == '$')
+                {
+                    Console.Write("$ ");
+                    if (line[2] == 'c')
+                    {
+                        Console.Write("cd ");
+                        if (line[5] == '.')
+                        {
+                            // move out one level
+                            Console.WriteLine("..");
+
+                        }
+                        else if (line[5] == '/')
+                        {
+                            // switch to root
+                            // start of read file
+                            Console.WriteLine("/");
+
+                        }
+                        else
+                        {
+                            // move one level
+                            currentDir = (string)line.Substring(5, line.Length - 5);
+                            Console.WriteLine(currentDir);
+                        }
+
+                    }
+                    else if (line[2] == 'l')
+                    {
+                        // list folder content
+                        // no action required
+                        Console.WriteLine("ls");
+                    }
+
+                }
+                else if (line[0] == 'd')
+                {
+                    // directory found in currentDir
+                    string dirName = (string)line.Substring(3, line.Length - 3);
+                    Console.WriteLine("dir" + dirName);
+
+                    // check if exists, if not create
+                    fileSystem.AddDirectory(new DeviceDirectory(dirName, fileSystem));
+
+                }
+                else if (Char.IsDigit(line[0]))
+                {
+                    // file found in current dir
+                    string[] subs = line.Split(' ');
+                    int fileSize = int.Parse(subs[0]);
+                    string fileName = subs[1];
+                    Console.WriteLine(fileSize + " " + fileName);
+
+                    fileSystem.AddFile(new DeviceFile(fileName, fileSize));
+                }
+
+            }
+
+
+ 
+
+            
+            
+
+        }
+
+
+
+
+     }
 }
