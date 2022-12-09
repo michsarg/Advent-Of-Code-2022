@@ -1375,11 +1375,87 @@ namespace SolverLibrary
                 }
                 Console.WriteLine();
             }
-
-
             Console.WriteLine("totalVisible: " + totalVisible);
         }
 
+        public void Solver08B()
+        {
+            Console.WriteLine("Challenge: 8B");
 
+            string directory = Directory.GetCurrentDirectory();
+            string readPath = System.IO.Path.Combine(directory, @"..\..\..\data\08input.txt");
+            var lines = File.ReadAllLines(readPath);
+            int linesY = lines.Length;
+            int linesX = lines[0].Length;
+
+            int totalVisible = ((2 * linesX) + (2 * linesY)) - 4;
+            int bestScore = 0;
+
+            for (int x = 0; x < linesX; x++)
+            {
+                for (int y = 0; y < linesY; y++)
+                {
+                    if (x == 0 || x == linesX - 1 || y == 0 || y == linesY - 1) continue;
+
+                    int tree = lines[x][y];
+
+                    int westScore = 0;
+                    for (int i = y-1; i >= 0; i--)
+                    {
+                        if (tree > lines[x][i]) westScore++;
+                        else
+                        {
+                            westScore++;
+                            break;
+                        }
+                    }
+
+                    int eastScore = 0;
+                    for (int i = y+1; i < linesY; i++)
+                    {
+                        if (tree > lines[x][i]) eastScore++;
+                        else
+                        {
+                            eastScore++;
+                            break;
+                        }
+                    }
+
+                    int northScore = 0;
+                    for (int j = x-1; j >= 0; j--)
+                    {
+                        if (tree > lines[j][y]) northScore++;
+                        else
+                        {
+                            northScore++;
+                            break;
+                        }
+                    }
+
+                    int southScore = 0;
+                    for (int j = x+1; j < linesX; j++)
+                    {
+                        if (tree > lines[j][y]) southScore++;
+                        else
+                        {
+                            southScore++;
+                            break;
+                        }
+                    }
+
+                    int totalScore = (northScore * eastScore * southScore * westScore);
+                    if (totalScore > bestScore) bestScore = totalScore;
+                    Console.WriteLine();
+                    Console.WriteLine("lines[" + x + "][" + y + "]");
+                    Console.WriteLine("N " + northScore);
+                    Console.WriteLine("E " + eastScore);
+                    Console.WriteLine("S " + southScore);
+                    Console.WriteLine("W " + westScore);
+                    Console.WriteLine("totalScore = "+ totalScore);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("bestScore: " + bestScore);
+        }
     }
 }
