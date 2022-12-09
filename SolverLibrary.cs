@@ -8,6 +8,7 @@ using System.Runtime.ExceptionServices;
 using ClassLibrary;
 using System.Security.Cryptography.X509Certificates;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 
 namespace SolverLibrary
 {
@@ -1022,91 +1023,132 @@ namespace SolverLibrary
             Console.WriteLine("Challenge: 7A");
 
             string directory = Directory.GetCurrentDirectory();
-            string filePath = System.IO.Path.Combine(directory, @"..\..\..\data\07sample.txt");
-            var lines = File.ReadLines(filePath);
+            string readPath = System.IO.Path.Combine(directory, @"..\..\..\data\07input.txt");
+            string writePath = System.IO.Path.Combine(directory, @"..\..\..\data\07output.txt");
+            string filesPath = System.IO.Path.Combine(directory, @"..\..\..\data\07files.txt");
+            var lines = File.ReadLines(readPath);
             int linesLength = lines.Count();
 
             Console.WriteLine(linesLength);
             string currentDir = "/";
-            DeviceDirectory fileSystem = new DeviceDirectory("/", null);
+            string filePath = "/";
 
-            // iterate through lines
-            foreach (string line in lines)
+            using (StreamWriter fileWriter = new StreamWriter(filesPath))
             {
-                processLine(ref fileSystem, line);
-            }
-
-            // process each line, passing file system
-            void processLine(ref DeviceDirectory fileSystem, string line)
-            {
-                if (line[0] == '$')
+                using (StreamWriter writer = new StreamWriter(writePath))
                 {
-                    Console.Write("$ ");
-                    if (line[2] == 'c')
+                    // iterate through lines
+                    foreach (string line in lines)
                     {
-                        Console.Write("cd ");
-                        if (line[5] == '.')
+                        processLine(line);
+                    }
+
+                    // process each line, passing file system
+                    void processLine(string line)
+                    {
+                        if (line[0] == '$')
                         {
-                            // move out one level
-                            Console.WriteLine("..");
+                            Console.Write("$ ");
+                            writer.Write("$ ");
+                            if (line[2] == 'c')
+                            {
+                                Console.Write("cd ");
+                                writer.Write("cd ");
+                                if (line[5] == '.') // change directory
+                                {
+                                    Console.WriteLine("..");
+                                    writer.WriteLine("..");
+                                    int li = filePath.Substring(0, filePath.LastIndexOf("/")).LastIndexOf("/") +1;
+                                    filePath = filePath.Substring(0, li);
+
+                                }
+                                else if (line[5] == '/') // switch to root
+                                {
+                                    Console.WriteLine("/");
+                                    writer.WriteLine("/");
+                                }
+                                else // change directory
+                                {
+                                    currentDir = (string)line.Substring(5, line.Length - 5);
+                                    Console.WriteLine(currentDir);
+                                    writer.WriteLine(currentDir);
+                                    filePath = filePath + currentDir + "/";
+                                }
+
+                            }
+                            else if (line[2] == 'l') // list contents (no action)
+                            {
+                                Console.WriteLine("ls");
+                                writer.WriteLine("ls");
+                            }
 
                         }
-                        else if (line[5] == '/')
+                        else if (line[0] == 'd')
                         {
-                            // switch to root
-                            // start of read file
-                            Console.WriteLine("/");
-
+                            // directory found in currentDir
+                            string dirName = (string)line.Substring(3, line.Length - 3);
+                            Console.WriteLine("dir" + dirName);
+                            writer.WriteLine("dir" + dirName);
                         }
-                        else
+                        else if (Char.IsDigit(line[0]))
                         {
-                            // move one level
-                            currentDir = (string)line.Substring(5, line.Length - 5);
-                            Console.WriteLine(currentDir);
+                            // file found in current dir
+                            string[] subs = line.Split(' ');
+                            int fileSize = int.Parse(subs[0]);
+                            string fileName = subs[1];
+                            Console.WriteLine(fileSize + " " + fileName);
+                            writer.WriteLine(fileSize + " " + fileName);
+                            fileWriter.WriteLine(filePath + fileName + "(" + fileSize + ")");
                         }
 
                     }
-                    else if (line[2] == 'l')
-                    {
-                        // list folder content
-                        // no action required
-                        Console.WriteLine("ls");
-                    }
 
                 }
-                else if (line[0] == 'd')
+            }
+            Console.WriteLine();
+
+            // create dictionary of folders
+            Dictionary<string, int> dirSizes = new System.Collections.Generic.Dictionary<string, int>();
+
+            // read through 07files.txt
+            // get all folders
+            var filesLines = File.ReadLines(filesPath);
+
+            // sort 07files by number of dirs
+            List<string> filesLinesList= new List<string>();
+            foreach (string line in filesLines)
+                { filesLinesList.Add(line); }
+
+            foreach (string line in filesLinesList) 
+            { 
+                int index1 = line.IndexOf('(');
+                int index2 = line.IndexOf(')');
+                //int size = char.Parse(line.Substring(valueIndexStart, valueIndexEnd));
+                int value = int.Parse(line.Substring(index1+1,(index2-index1-1)));
+                Console.WriteLine(value);
+
+                
+
+                string path = line.Substring(0, line.LastIndexOf('/')+1);
+                while (path != "/")
                 {
-                    // directory found in currentDir
-                    string dirName = (string)line.Substring(3, line.Length - 3);
-                    Console.WriteLine("dir" + dirName);
-
-                    // check if exists, if not create
-                    fileSystem.AddDirectory(new DeviceDirectory(dirName, fileSystem));
-
+                    if (!dirSizes.ContainsKey(path))
+                        { dirSizes.Add(path, value); }
+                    else { dirSizes[path] += value; }
+                    path = path.Substring(0, path.Substring(0, path.LastIndexOf("/")).LastIndexOf("/")+1);
                 }
-                else if (Char.IsDigit(line[0]))
-                {
-                    // file found in current dir
-                    string[] subs = line.Split(' ');
-                    int fileSize = int.Parse(subs[0]);
-                    string fileName = subs[1];
-                    Console.WriteLine(fileSize + " " + fileName);
-
-                    fileSystem.AddFile(new DeviceFile(fileName, fileSize));
-                }
-
             }
 
+            int totalValue = 0;
+            foreach (KeyValuePair<string, int> res in dirSizes)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", res.Key, res.Value);
+                if (res.Value < 100000) totalValue += res.Value;
+            }
 
- 
-
-            
-            
+            Console.WriteLine("totalValue: " + totalValue);
 
         }
-
-
-
 
      }
 }

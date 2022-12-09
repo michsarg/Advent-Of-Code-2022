@@ -1,4 +1,4 @@
-﻿$ cd /
+$ cd /
 $ ls
 dir bcfwbq
 14779 cmss
