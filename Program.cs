@@ -11,7 +11,7 @@ namespace AdventProgram
             Console.WriteLine("Advent of Code 2022");
             while (!endApp)
             {
-                solvers.Solver07B();
+                solvers.Solver08A();
                 endApp = true;
             }
             Console.WriteLine("\n");

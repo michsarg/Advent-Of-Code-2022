@@ -1150,7 +1150,6 @@ namespace SolverLibrary
 
         }
 
-
         public void Solver07B()
         {
             Console.WriteLine("Challenge: 7B");
@@ -1295,5 +1294,92 @@ namespace SolverLibrary
             Console.WriteLine("bestSpace: " + bestSpace);
 
         }
+
+        public void Solver08A()
+        {
+            Console.WriteLine("Challenge: 8A");
+
+            string directory = Directory.GetCurrentDirectory();
+            string readPath = System.IO.Path.Combine(directory, @"..\..\..\data\08input.txt");
+            var lines = File.ReadAllLines(readPath);
+            int linesY = lines.Length;
+            int linesX = lines[0].Length;
+
+            int totalVisible = ((2 * linesX) + (2 * linesY)) - 4;
+
+            for (int x = 0; x < linesX; x++)
+            {
+                for (int y = 0; y < linesY; y++)
+                {
+                    if (x == 0 || x == linesX - 1 || y == 0 || y == linesY - 1) continue;
+
+                    int tree = lines[x][y];
+
+                    bool westCheck = true;
+                    for (int i = 0; i < x; i++)
+                    {
+                        if (i == x) continue;
+                        if (tree > lines[i][y]) continue;
+                        else
+                        {
+                            westCheck = false;
+                            break;
+                        }
+                    }
+
+                    bool eastCheck = true;
+                    for (int i = x; i < linesY; i++)
+                    {
+                        if (i == x) continue;
+                        if (tree > lines[i][y]) continue;
+                        else
+                        {
+                            eastCheck = false;
+                            break;
+                        }
+                    }
+
+                    bool northCheck = true;
+                    for (int j = 0; j < y; j++)
+                    {
+                        if (j == y) continue;
+                        if (tree > lines[x][j]) continue;
+                        else
+                        {
+                            northCheck = false;
+                            break;
+                        }
+                    }
+
+                    bool southCheck = true;
+                    for (int j = y; j < linesY; j++)
+                    {
+                        if (j == y) continue;
+                        if (tree > lines[x][j]) continue;
+                        else
+                        {
+                            southCheck = false;
+                            break;
+                        }
+                    }
+
+                    if (northCheck || eastCheck || southCheck || westCheck)
+                    {
+                        Console.WriteLine("lines[" + x + "][" + y + "]=" + lines[x][y] + " visible");
+                        totalVisible += 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("lines[" + x + "][" + y + "]=" + lines[x][y] + " hidden");
+                    }
+                }
+                Console.WriteLine();
+            }
+
+
+            Console.WriteLine("totalVisible: " + totalVisible);
+        }
+
+
     }
 }
