@@ -786,52 +786,52 @@ namespace SolverLibrary
 
 
                 //Execute move
-                
-                Stack <char> stackPlus= new Stack<char>();
+
+                Stack<char> stackPlus = new Stack<char>();
 
 
-            if (moveFrom == 1)
-            {
-                // pop/push to stackPlus
-                for (int k = 0; k < moveCount; k++) stackPlus.Push(stack1.Pop());
-                // pop/push to moveTo
-                if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
-                if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
-                if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
-                if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
-                if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
-                if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
-                if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
-                if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
-            }
-            else if (moveFrom == 2)
-            {
-                // pop/push to stackPlus
-                for (int k = 0; k < moveCount; k++) stackPlus.Push(stack2.Pop());
-                // pop/push to moveTo
-                if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
-                if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
-                if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
-                if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
-                if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
-                if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
-                if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
-                if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
-            }
-            else if (moveFrom == 3)
-            {
-                // pop/push to stackPlus
-                for (int k = 0; k < moveCount; k++) stackPlus.Push(stack3.Pop());
-                // pop/push to moveTo
-                if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
-                if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
-                if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
-                if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
-                if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
-                if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
-                if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
-                if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
-            }
+                if (moveFrom == 1)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack1.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
+                else if (moveFrom == 2)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack2.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 3) for (int l = 0; l < moveCount; l++) stack3.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
+                else if (moveFrom == 3)
+                {
+                    // pop/push to stackPlus
+                    for (int k = 0; k < moveCount; k++) stackPlus.Push(stack3.Pop());
+                    // pop/push to moveTo
+                    if (moveTo == 1) for (int l = 0; l < moveCount; l++) stack1.Push(stackPlus.Pop());
+                    if (moveTo == 2) for (int l = 0; l < moveCount; l++) stack2.Push(stackPlus.Pop());
+                    if (moveTo == 4) for (int l = 0; l < moveCount; l++) stack4.Push(stackPlus.Pop());
+                    if (moveTo == 5) for (int l = 0; l < moveCount; l++) stack5.Push(stackPlus.Pop());
+                    if (moveTo == 6) for (int l = 0; l < moveCount; l++) stack6.Push(stackPlus.Pop());
+                    if (moveTo == 7) for (int l = 0; l < moveCount; l++) stack7.Push(stackPlus.Pop());
+                    if (moveTo == 8) for (int l = 0; l < moveCount; l++) stack8.Push(stackPlus.Pop());
+                    if (moveTo == 9) for (int l = 0; l < moveCount; l++) stack9.Push(stackPlus.Pop());
+                }
                 else if (moveFrom == 4)
                 {
                     // pop/push to stackPlus
@@ -968,18 +968,18 @@ namespace SolverLibrary
             int markerSize = 4;
 
             // cycle through the chars starting from markerSize
-            for(int i = markerSize; i<input.Length; i++)
+            for (int i = markerSize; i < input.Length; i++)
             {
                 //Console.WriteLine("input[" + i + "]: " + input[i]);
 
                 // for current i, check for matches to previous chars
                 List<char> charList = new List<char>();
-                for (int j = 0; j<markerSize; j++)
+                for (int j = 0; j < markerSize; j++)
                 {
-                    charList.Add(input[i-j]);
+                    charList.Add(input[i - j]);
                 }
 
-                if(charList.Count() == charList.Distinct().Count())
+                if (charList.Count() == charList.Distinct().Count())
                 {
                     Console.Write("All distinct at position: ");
                     Console.WriteLine(i + 1);
@@ -1058,7 +1058,7 @@ namespace SolverLibrary
                                 {
                                     Console.WriteLine("..");
                                     writer.WriteLine("..");
-                                    int li = filePath.Substring(0, filePath.LastIndexOf("/")).LastIndexOf("/") +1;
+                                    int li = filePath.Substring(0, filePath.LastIndexOf("/")).LastIndexOf("/") + 1;
                                     filePath = filePath.Substring(0, li);
 
                                 }
@@ -1115,27 +1115,27 @@ namespace SolverLibrary
             var filesLines = File.ReadLines(filesPath);
 
             // sort 07files by number of dirs
-            List<string> filesLinesList= new List<string>();
+            List<string> filesLinesList = new List<string>();
             foreach (string line in filesLines)
-                { filesLinesList.Add(line); }
+            { filesLinesList.Add(line); }
 
-            foreach (string line in filesLinesList) 
-            { 
+            foreach (string line in filesLinesList)
+            {
                 int index1 = line.IndexOf('(');
                 int index2 = line.IndexOf(')');
                 //int size = char.Parse(line.Substring(valueIndexStart, valueIndexEnd));
-                int value = int.Parse(line.Substring(index1+1,(index2-index1-1)));
+                int value = int.Parse(line.Substring(index1 + 1, (index2 - index1 - 1)));
                 Console.WriteLine(value);
 
-                
 
-                string path = line.Substring(0, line.LastIndexOf('/')+1);
+
+                string path = line.Substring(0, line.LastIndexOf('/') + 1);
                 while (path != "/")
                 {
                     if (!dirSizes.ContainsKey(path))
-                        { dirSizes.Add(path, value); }
+                    { dirSizes.Add(path, value); }
                     else { dirSizes[path] += value; }
-                    path = path.Substring(0, path.Substring(0, path.LastIndexOf("/")).LastIndexOf("/")+1);
+                    path = path.Substring(0, path.Substring(0, path.LastIndexOf("/")).LastIndexOf("/") + 1);
                 }
             }
 
@@ -1260,7 +1260,7 @@ namespace SolverLibrary
                 //int size = char.Parse(line.Substring(valueIndexStart, valueIndexEnd));
                 int value = int.Parse(line.Substring(index1 + 1, (index2 - index1 - 1)));
                 Console.WriteLine(value);
-                totalUsedSpace+= value;
+                totalUsedSpace += value;
 
 
                 string path = line.Substring(0, line.LastIndexOf('/') + 1);
@@ -1283,12 +1283,12 @@ namespace SolverLibrary
                 {
                     bestSpace = res.Value;
                     bestDir = res.Key;
-                }    
+                }
             }
 
 
 
-            Console.WriteLine("totalUsedSpace: " +  totalUsedSpace);
+            Console.WriteLine("totalUsedSpace: " + totalUsedSpace);
             Console.WriteLine("unusedSpace: " + unusedSpace);
             Console.WriteLine();
             Console.WriteLine("bestSpace: " + bestSpace);
@@ -1400,7 +1400,7 @@ namespace SolverLibrary
                     int tree = lines[x][y];
 
                     int westScore = 0;
-                    for (int i = y-1; i >= 0; i--)
+                    for (int i = y - 1; i >= 0; i--)
                     {
                         if (tree > lines[x][i]) westScore++;
                         else
@@ -1411,7 +1411,7 @@ namespace SolverLibrary
                     }
 
                     int eastScore = 0;
-                    for (int i = y+1; i < linesY; i++)
+                    for (int i = y + 1; i < linesY; i++)
                     {
                         if (tree > lines[x][i]) eastScore++;
                         else
@@ -1422,7 +1422,7 @@ namespace SolverLibrary
                     }
 
                     int northScore = 0;
-                    for (int j = x-1; j >= 0; j--)
+                    for (int j = x - 1; j >= 0; j--)
                     {
                         if (tree > lines[j][y]) northScore++;
                         else
@@ -1433,7 +1433,7 @@ namespace SolverLibrary
                     }
 
                     int southScore = 0;
-                    for (int j = x+1; j < linesX; j++)
+                    for (int j = x + 1; j < linesX; j++)
                     {
                         if (tree > lines[j][y]) southScore++;
                         else
@@ -1451,11 +1451,124 @@ namespace SolverLibrary
                     Console.WriteLine("E " + eastScore);
                     Console.WriteLine("S " + southScore);
                     Console.WriteLine("W " + westScore);
-                    Console.WriteLine("totalScore = "+ totalScore);
+                    Console.WriteLine("totalScore = " + totalScore);
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("bestScore: " + bestScore);
+        }
+
+
+        public void Solver09A()
+        {
+            Console.WriteLine("Challenge: 9A");
+
+            string directory = Directory.GetCurrentDirectory();
+            string readPath = System.IO.Path.Combine(directory, @"..\..\..\data\09input.txt");
+            var lines = File.ReadAllLines(readPath);
+
+            // initialise positions
+            int headX = -10;
+            int headY = -5;
+            int tailX = -10;
+            int tailY = -5;
+
+            List<char> moveList = new List<char>();
+            List<string> tailPositions = new List<string>();
+
+            foreach(string line in lines)
+            {
+                int distance =  int.Parse(line.Substring(2, line.Length-2).ToString());
+                char direction = (line[0]);
+                for (int i = 0; i < distance; i++) moveList.Add(direction);
+            }
+
+            foreach (var move in moveList)
+            {
+                //draw grid
+                //for (int y = 0; y < 6; y++)
+                //{
+                //    for (int x = 0; x < 6; x++)
+                //    {
+                //        if (headX == tailX && headY == tailY && x == tailX && y == tailY)
+                //        { Console.Write(" H"); }
+                //        else if (x == headX & y == headY)
+                //        { Console.Write(" H"); }
+                //        else if (x == tailX & y == tailY)
+                //        { Console.Write(" T"); }
+                //        else
+                //        { Console.Write(" ."); }
+                //    }
+                //    Console.WriteLine();
+                //}
+
+                //Console.WriteLine("move = {0}", move);
+                // update head
+                if (move == 'U') headY--;
+                if (move == 'D') headY++;
+                if (move == 'L') headX--;
+                if (move == 'R') headX++;
+
+                //update Tail
+                // head moved vertical to tail
+                if (headX == tailX)
+                {
+                    if (headY - tailY == 2) tailY += 1;             // move south
+                    else if (headY - tailY == -2) tailY -= 1;       // move north
+                }
+                //head moved horizontal to tail
+                else if (headY == tailY)
+                {
+                    if (headX - tailX == -2) tailX -= 1;            // move west
+                    else if (headX - tailX == 2) tailX += 1;        // move east
+                }
+                // head move north east
+                else if
+                    (
+                        (headY + 2 == tailY && headX - 1 == tailX) ||
+                        (headY + 2 == tailY && headX - 2 == tailX) ||
+                        (headY + 1 == tailY && headX - 2 == tailX)
+                    )
+                {
+                    tailX += 1;
+                    tailY -= 1;
+                }
+                // head move north west
+                else if
+                    (
+                        (headY + 2 == tailY && headX + 1 == tailX) ||
+                        (headY + 2 == tailY && headX + 2 == tailX) ||
+                        (headY + 1 == tailY && headX + 2 == tailX)
+                    )
+                {
+                    tailX -= 1;
+                    tailY -= 1;
+                }
+                // head move south west
+                else if
+                    (
+                        (headY - 2 == tailY && headX + 1 == tailX) ||
+                        (headY - 2 == tailY && headX + 2 == tailX) ||
+                        (headY - 1 == tailY && headX + 2 == tailX)
+                    )
+                {
+                    tailX -= 1;
+                    tailY += 1;
+                }
+                // head move south east
+                else if
+                    (
+                        (headY - 2 == tailY && headX - 1 == tailX) ||
+                        (headY - 2 == tailY && headX - 2 == tailX) ||
+                        (headY - 1 == tailY && headX - 2 == tailX)
+                    )
+                    {
+                        tailX += 1;
+                        tailY += 1;
+                    }
+                tailPositions.Add(tailX + "," + tailY);
+            }
+         Console.WriteLine("Distinct Tail Positions: {0}", tailPositions.Distinct().Count());
         }
     }
 }
