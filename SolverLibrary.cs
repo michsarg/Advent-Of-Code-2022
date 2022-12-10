@@ -1458,7 +1458,6 @@ namespace SolverLibrary
             Console.WriteLine("bestScore: " + bestScore);
         }
 
-
         public void Solver09A()
         {
             Console.WriteLine("Challenge: 9A");
@@ -1569,6 +1568,107 @@ namespace SolverLibrary
                 tailPositions.Add(tailX + "," + tailY);
             }
          Console.WriteLine("Distinct Tail Positions: {0}", tailPositions.Distinct().Count());
+        }
+
+        public void Solver09B()
+        {
+            Console.WriteLine("Challenge: 9B");
+            string readPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\data\09input.txt");
+            var lines = File.ReadAllLines(readPath);
+
+            // initialise positions
+            //int[,] pos = { { 0,0 }, { 0,0 } };
+            int[,] pos = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };
+            int posLength = pos.GetLength(0);
+
+            List<char> moveList = new List<char>();
+            List<string> tailPositions = new List<string>();
+
+            foreach (string line in lines)
+            {
+                int distance = int.Parse(line.Substring(2, line.Length - 2).ToString());
+                char direction = (line[0]);
+                for (int i = 0; i < distance; i++) moveList.Add(direction);
+            }
+
+            void updateLeader(char move, int l)
+            {
+                if (move == 'U') pos[l, 1]--;
+                if (move == 'D') pos[l, 1]++;
+                if (move == 'L') pos[l, 0]--;
+                if (move == 'R') pos[l, 0]++;
+            }
+
+            void updateFollower(int f)
+            {
+                int l = f-1;
+
+                // head moved vertical to tail
+                if (pos[l, 0] == pos[f, 0])
+                {
+                    if      (pos[l, 1] - pos[f, 1] ==  2) pos[f, 1] += 1;   // move south
+                    else if (pos[l, 1] - pos[f, 1] == -2) pos[f, 1] -= 1;   // move north
+                }
+                //head moved horizontal to tail
+                else if (pos[l, 1] == pos[f, 1])
+                {
+                    if      (pos[l, 0] - pos[f, 0] == -2) pos[f, 0] -= 1;   // move west
+                    else if (pos[l, 0] - pos[f, 0] ==  2) pos[f, 0] += 1;   // move east
+                }
+                // head moved north east
+                else if
+                    (
+                        (pos[l, 1] + 2 == pos[f, 1] && pos[l, 0] - 1 == pos[f, 0]) ||
+                        (pos[l, 1] + 2 == pos[f, 1] && pos[l, 0] - 2 == pos[f, 0]) ||
+                        (pos[l, 1] + 1 == pos[f, 1] && pos[l, 0] - 2 == pos[f, 0])
+                    )
+                {
+                    pos[f, 0] += 1;
+                    pos[f, 1] -= 1;
+                }
+                // head moved north west
+                else if
+                    (
+                        (pos[l, 1] + 2 == pos[f, 1] && pos[l, 0] + 1 == pos[f, 0]) ||
+                        (pos[l, 1] + 2 == pos[f, 1] && pos[l, 0] + 2 == pos[f, 0]) ||
+                        (pos[l, 1] + 1 == pos[f, 1] && pos[l, 0] + 2 == pos[f, 0])
+                    )
+                {
+                    pos[f, 0] -= 1;
+                    pos[f, 1] -= 1;
+                }
+                // head moved south west
+                else if
+                    (
+                        (pos[l, 1] - 2 == pos[f, 1] && pos[l, 0] + 1 == pos[f, 0]) ||
+                        (pos[l, 1] - 2 == pos[f, 1] && pos[l, 0] + 2 == pos[f, 0]) ||
+                        (pos[l, 1] - 1 == pos[f, 1] && pos[l, 0] + 2 == pos[f, 0])
+                    )
+                {
+                    pos[f, 0] -= 1;
+                    pos[f, 1] += 1;
+                }
+                // head moved south east
+                else if
+                    (
+                        (pos[l, 1] - 2 == pos[f, 1] && pos[l, 0] - 1 == pos[f, 0]) ||
+                        (pos[l, 1] - 2 == pos[f, 1] && pos[l, 0] - 2 == pos[f, 0]) ||
+                        (pos[l, 1] - 1 == pos[f, 1] && pos[l, 0] - 2 == pos[f, 0])
+                    )
+                {
+                    pos[f, 0] += 1;
+                    pos[f, 1] += 1;
+                }
+                if (f == posLength-1) tailPositions.Add(pos[f, 0] + "," + pos[f, 1]);
+            }
+
+
+            foreach (var move in moveList)
+            {
+                updateLeader(move, 0);
+                for (int i = 1; i < posLength; i++) updateFollower(i);
+            }
+            Console.WriteLine("Distinct Tail Positions: {0}", tailPositions.Distinct().Count());
         }
     }
 }
