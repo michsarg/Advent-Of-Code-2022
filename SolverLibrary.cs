@@ -1671,7 +1671,6 @@ namespace SolverLibrary
             Console.WriteLine("Distinct Tail Positions: {0}", tailPositions.Distinct().Count());
         }
 
-
         public void Solver10A()
         {
             Console.WriteLine("Challenge: 10A");
