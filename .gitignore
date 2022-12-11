@@ -364,3 +364,7 @@ FodyWeavers.xsd
 
 # Data inputs
 data/
+
+# Git Files
+.gitattributes
+.gitignore
