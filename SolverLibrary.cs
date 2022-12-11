@@ -1577,7 +1577,7 @@ namespace SolverLibrary
             var lines = File.ReadAllLines(readPath);
 
             // initialise positions
-            //int[,] pos = { { 0,0 }, { 0,0 } };
+            //int[,] pos = { { 0,0 }, { 0,0 } };  // sample
             int[,] pos = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };
             int posLength = pos.GetLength(0);
 
@@ -1670,5 +1670,56 @@ namespace SolverLibrary
             }
             Console.WriteLine("Distinct Tail Positions: {0}", tailPositions.Distinct().Count());
         }
+
+
+        public void Solver10A()
+        {
+            Console.WriteLine("Challenge: 10A");
+            string readPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\data\10input.txt");
+            var lines = File.ReadAllLines(readPath);
+
+
+            // build list of instructions
+            int[] register= new int[lines.Length];
+            List<int> signalStrengths = new List<int>();
+            List<int> registerX = new List<int>();
+
+            for (int c = 0; c<lines.Length; c++)
+            {
+                if (lines[c].Contains("noop")) registerX.Add(0);
+                if (lines[c].Contains("addx"))
+                {
+                    registerX.Add(0);
+                    registerX.Add(int.Parse(lines[c].Substring(4, lines[c].Length - 4)));
+                }
+            }
+            foreach (int item in registerX) Console.WriteLine(item);
+            Console.WriteLine();
+
+            int[] changesArray = registerX.ToArray();
+            int[] strengths = new int[changesArray.Length];
+
+
+            int x = 1;
+            for (int i = 0; i<changesArray.Length; i++)
+            {
+                x += changesArray[i];
+                strengths[i] = x;
+            }
+
+            Console.WriteLine();
+
+            int totalStrength = 0;
+            for (int i = 19; i<strengths.Length; i+=40)
+            {
+                Console.Write("{0} * {1} = ", i+1, strengths[i-1]);
+                Console.WriteLine(" {0}", strengths[i-1] * (i+1));
+                totalStrength += (strengths[i-1] * (i+1));
+            }
+
+            Console.WriteLine("\ntotalStrength: {0}", totalStrength);
+
+        }
+
+        }
     }
-}
