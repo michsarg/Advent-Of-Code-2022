@@ -1682,39 +1682,44 @@ namespace SolverLibrary
             // build list of instructions
             int[] register= new int[lines.Length];
             List<int> signalStrengths = new List<int>();
-            List<int> registerX = new List<int>();
+            List<int> xChange = new List<int>();
+
+            // account for 2 cycle delay
+            xChange.Add(0);
+            xChange.Add(0);
 
             for (int c = 0; c<lines.Length; c++)
             {
-                if (lines[c].Contains("noop")) registerX.Add(0);
+                if (lines[c].Contains("noop")) xChange.Add(0);
                 if (lines[c].Contains("addx"))
                 {
-                    registerX.Add(0);
-                    registerX.Add(int.Parse(lines[c].Substring(4, lines[c].Length - 4)));
+                    xChange.Add(0);
+                    xChange.Add(int.Parse(lines[c].Substring(4, lines[c].Length - 4)));
                 }
             }
-            foreach (int item in registerX) Console.WriteLine(item);
+            foreach (int item in xChange) Console.WriteLine(item);
             Console.WriteLine();
 
-            int[] changesArray = registerX.ToArray();
-            int[] strengths = new int[changesArray.Length];
+            int[] xChangeArray = xChange.ToArray();
+            int[] xValue = new int[xChangeArray.Length];
 
 
             int x = 1;
-            for (int i = 0; i<changesArray.Length; i++)
+            for (int i = 0; i<xChangeArray.Length; i++)
             {
-                x += changesArray[i];
-                strengths[i] = x;
+                x += xChangeArray[i];
+                xValue[i] = x;
             }
 
             Console.WriteLine();
 
+            // calculate strengths from cycle and xValue
             int totalStrength = 0;
-            for (int i = 19; i<strengths.Length; i+=40)
+            for (int cycle = 20; cycle<xValue.Length; cycle+=40)
             {
-                Console.Write("{0} * {1} = ", i+1, strengths[i-1]);
-                Console.WriteLine(" {0}", strengths[i-1] * (i+1));
-                totalStrength += (strengths[i-1] * (i+1));
+                Console.Write("{0} * {1} = ", cycle, xValue[cycle]);
+                Console.WriteLine(" {0} strength", xValue[cycle] * (cycle));
+                totalStrength += (xValue[cycle] * (cycle));
             }
 
             Console.WriteLine("\ntotalStrength: {0}", totalStrength);
