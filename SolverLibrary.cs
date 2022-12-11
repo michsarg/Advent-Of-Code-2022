@@ -1725,5 +1725,61 @@ namespace SolverLibrary
 
         }
 
+        public void Solver10B()
+        {
+            Console.WriteLine("Challenge: 10B");
+            string readPath = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\data\10input.txt");
+            var lines = File.ReadAllLines(readPath);
+
+
+            // build list of instructions
+            int[] register = new int[lines.Length];
+            List<int> signalStrengths = new List<int>();
+            List<int> xChange = new List<int>();
+
+            // account for 2 cycle delay
+            xChange.Add(0);
+            xChange.Add(0);
+
+            for (int c = 0; c < lines.Length; c++)
+            {
+                if (lines[c].Contains("noop")) xChange.Add(0);
+                if (lines[c].Contains("addx"))
+                {
+                    xChange.Add(0);
+                    xChange.Add(int.Parse(lines[c].Substring(4, lines[c].Length - 4)));
+                }
+            }
+            //foreach (int item in xChange) Console.WriteLine(item);
+            Console.WriteLine();
+
+            int[] xChangeArray = xChange.ToArray();
+            int[] xValue = new int[xChangeArray.Length];
+
+
+            int x = 1;
+            for (int i = 0; i < xChangeArray.Length; i++)
+            {
+                x += xChangeArray[i];
+                xValue[i] = x;
+            }
+
+            Console.WriteLine();
+
+            char[] sprites= new char[xValue.Length];
+
+            for (int cycle = 1; cycle < xValue.Length; cycle+=1)
+            {
+                int linePos = (cycle-1) % 40;
+                //Console.Write("cycle:\t{0}\txValue:\t{1}\t", cycle, xValue[cycle]);
+                if (xValue[cycle] == linePos || xValue[cycle]== linePos+1 || xValue[cycle] == linePos-1)
+                    Console.Write('#');
+                else
+                    Console.Write(".");
+                if (linePos == 39) Console.WriteLine();
+            };
+
+        }
+
     }
 }
