@@ -1475,9 +1475,9 @@ namespace SolverLibrary
             List<char> moveList = new List<char>();
             List<string> tailPositions = new List<string>();
 
-            foreach(string line in lines)
+            foreach (string line in lines)
             {
-                int distance =  int.Parse(line.Substring(2, line.Length-2).ToString());
+                int distance = int.Parse(line.Substring(2, line.Length - 2).ToString());
                 char direction = (line[0]);
                 for (int i = 0; i < distance; i++) moveList.Add(direction);
             }
@@ -1561,13 +1561,13 @@ namespace SolverLibrary
                         (headY - 2 == tailY && headX - 2 == tailX) ||
                         (headY - 1 == tailY && headX - 2 == tailX)
                     )
-                    {
-                        tailX += 1;
-                        tailY += 1;
-                    }
+                {
+                    tailX += 1;
+                    tailY += 1;
+                }
                 tailPositions.Add(tailX + "," + tailY);
             }
-         Console.WriteLine("Distinct Tail Positions: {0}", tailPositions.Distinct().Count());
+            Console.WriteLine("Distinct Tail Positions: {0}", tailPositions.Distinct().Count());
         }
 
         public void Solver09B()
@@ -1601,19 +1601,19 @@ namespace SolverLibrary
 
             void updateFollower(int f)
             {
-                int l = f-1;
+                int l = f - 1;
 
                 // head moved vertical to tail
                 if (pos[l, 0] == pos[f, 0])
                 {
-                    if      (pos[l, 1] - pos[f, 1] ==  2) pos[f, 1] += 1;   // move south
+                    if (pos[l, 1] - pos[f, 1] == 2) pos[f, 1] += 1;   // move south
                     else if (pos[l, 1] - pos[f, 1] == -2) pos[f, 1] -= 1;   // move north
                 }
                 //head moved horizontal to tail
                 else if (pos[l, 1] == pos[f, 1])
                 {
-                    if      (pos[l, 0] - pos[f, 0] == -2) pos[f, 0] -= 1;   // move west
-                    else if (pos[l, 0] - pos[f, 0] ==  2) pos[f, 0] += 1;   // move east
+                    if (pos[l, 0] - pos[f, 0] == -2) pos[f, 0] -= 1;   // move west
+                    else if (pos[l, 0] - pos[f, 0] == 2) pos[f, 0] += 1;   // move east
                 }
                 // head moved north east
                 else if
@@ -1659,7 +1659,7 @@ namespace SolverLibrary
                     pos[f, 0] += 1;
                     pos[f, 1] += 1;
                 }
-                if (f == posLength-1) tailPositions.Add(pos[f, 0] + "," + pos[f, 1]);
+                if (f == posLength - 1) tailPositions.Add(pos[f, 0] + "," + pos[f, 1]);
             }
 
 
@@ -1680,46 +1680,51 @@ namespace SolverLibrary
 
 
             // build list of instructions
-            int[] register= new int[lines.Length];
+            int[] register = new int[lines.Length];
             List<int> signalStrengths = new List<int>();
-            List<int> registerX = new List<int>();
+            List<int> xChange = new List<int>();
 
-            for (int c = 0; c<lines.Length; c++)
+            // account for 2 cycle delay
+            xChange.Add(0);
+            xChange.Add(0);
+
+            for (int c = 0; c < lines.Length; c++)
             {
-                if (lines[c].Contains("noop")) registerX.Add(0);
+                if (lines[c].Contains("noop")) xChange.Add(0);
                 if (lines[c].Contains("addx"))
                 {
-                    registerX.Add(0);
-                    registerX.Add(int.Parse(lines[c].Substring(4, lines[c].Length - 4)));
+                    xChange.Add(0);
+                    xChange.Add(int.Parse(lines[c].Substring(4, lines[c].Length - 4)));
                 }
             }
-            foreach (int item in registerX) Console.WriteLine(item);
+            foreach (int item in xChange) Console.WriteLine(item);
             Console.WriteLine();
 
-            int[] changesArray = registerX.ToArray();
-            int[] strengths = new int[changesArray.Length];
+            int[] xChangeArray = xChange.ToArray();
+            int[] xValue = new int[xChangeArray.Length];
 
 
             int x = 1;
-            for (int i = 0; i<changesArray.Length; i++)
+            for (int i = 0; i < xChangeArray.Length; i++)
             {
-                x += changesArray[i];
-                strengths[i] = x;
+                x += xChangeArray[i];
+                xValue[i] = x;
             }
 
             Console.WriteLine();
 
+            // calculate strengths from cycle and xValue
             int totalStrength = 0;
-            for (int i = 19; i<strengths.Length; i+=40)
+            for (int cycle = 20; cycle < xValue.Length; cycle += 40)
             {
-                Console.Write("{0} * {1} = ", i+1, strengths[i-1]);
-                Console.WriteLine(" {0}", strengths[i-1] * (i+1));
-                totalStrength += (strengths[i-1] * (i+1));
+                Console.Write("{0} * {1} = ", cycle, xValue[cycle]);
+                Console.WriteLine(" {0} strength", xValue[cycle] * (cycle));
+                totalStrength += (xValue[cycle] * (cycle));
             }
 
             Console.WriteLine("\ntotalStrength: {0}", totalStrength);
 
         }
 
-        }
     }
+}
