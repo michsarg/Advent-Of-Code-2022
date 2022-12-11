@@ -1,0 +1,15 @@
+C:\Users\micla\code\AdventOfCode2022\bin\Debug\net6.0\AoC22.exe
+C:\Users\micla\code\AdventOfCode2022\bin\Debug\net6.0\AoC22.deps.json
+C:\Users\micla\code\AdventOfCode2022\bin\Debug\net6.0\AoC22.runtimeconfig.json
+C:\Users\micla\code\AdventOfCode2022\bin\Debug\net6.0\AoC22.dll
+C:\Users\micla\code\AdventOfCode2022\bin\Debug\net6.0\AoC22.pdb
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.csproj.AssemblyReference.cache
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.AssemblyInfoInputs.cache
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.AssemblyInfo.cs
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.csproj.CoreCompileInputs.cache
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.dll
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\refint\AoC22.dll
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.pdb
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\AoC22.genruntimeconfig.cache
+C:\Users\micla\code\AdventOfCode2022\obj\Debug\net6.0\ref\AoC22.dll
